@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Differences</title>
+</head>
+<body>
+     <h1>Gefundene Unterschiede</h1>
+    <h2>Debug-Daten</h2>
+    <pre>
+        Differences: {{ differences }}
+        XML: {{ invoice_1 }}
+        PDF: {{ invoice_2 }}
+    </pre>
+    <ul>
+        {% for key in differences.keys() %}
+            <li>
+                <strong>{{ key }}</strong>:
+                <br>
+                <strong>XML:</strong> {{ invoice_1[key] }}
+                <br>
+                <strong>PDF:</strong> {{ invoice_2[key] }}
+            </li>
+        {% else %}
+            <li>Keine Unterschiede</li>
+        {% endfor %}
+    </ul>
+    <form action="/confirm" method="post">
+        <p>Möchten Sie die Änderungen übernehmen und eine neue PDF erstellen?</p>
+        <div>
+            <label for="new_name">Neuer Dateiname:</label>
+            <input type="text" id="new_name" name="new_name" placeholder="Name" required>
+        </div>
+        <button type="submit" name="decision" value="ja">Ja</button>
+        <button type="submit" name="decision" value="nein">Nein</button>
+    </form>
+</body>
+</html>
